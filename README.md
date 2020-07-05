@@ -146,3 +146,27 @@ After reset, the main menu should be like:
 Click the `Toggle` button to toggle the on board LED.
 
 You can further customize the other GPIOs from the `Configuration`, `Configure Template` menu.
+
+For example, to connect a [two channel relay module](https://www.youtube.com/watch?v=b6ZagKRnRdM), configure as:
+
+![](tasmota-configuration-configure-template-relay-module.png)
+
+Click `Save`.
+
+After reset, the main menu should be like:
+
+![](tasmota-main-menu-relay-module.png)
+
+Then connect the WeMos board to the relay module as:
+
+| WeMos Pin   | Relay Module Pin | Relay Module Connector |
+|-------------|------------------|------------------------|
+| 5V          | JD-VCC           | 3-pin connector        |
+| GND         | GND              | 3-pin connector        |
+| 3.3V        | VCC              | 4-pin connector        |
+| D0 (GPIO16) | IN1              | 4-pin connector        |
+| D1 (GPIO5)  | IN2              | 4-pin connector        |
+
+It should look something like:
+
+![](breadboard-wemos-relay-module.jpg)
