@@ -174,3 +174,39 @@ Then connect the WeMos board to the relay module as:
 It should look something like:
 
 ![](breadboard-wemos-relay-module.jpg)
+
+## Controlling Tasmota with HTTP requests
+
+Tasmota can be controlled with [HTTP requests](https://tasmota.github.io/docs/Commands/#with-web-requests).
+
+For example, you can retrieve the status with [HTTPie](https://httpie.org/) as:
+
+```bash
+http --verbose http://192.168.1.92/cm 'cmnd==Status 0'
+```
+
+You can retrieve all GPIOs assignments:
+
+```bash
+http --verbose http://192.168.1.92/cm 'cmnd==Gpio All'
+```
+
+You can retrieve all the relays states:
+
+```bash
+http --verbose http://192.168.1.92/cm 'cmnd==Power0'
+```
+
+You can change a relay state:
+
+```bash
+http --verbose http://192.168.1.92/cm 'cmnd==Power2 1'  # turn on relay 2.
+http --verbose http://192.168.1.92/cm 'cmnd==Power2'    # check the relay 2 state.
+http --verbose http://192.168.1.92/cm 'cmnd==Power2 0'  # turn off relay 2.
+```
+
+You can turn off all the relays:
+
+```bash
+http --verbose http://192.168.1.92/cm 'cmnd==Power0 0'
+```
