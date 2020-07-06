@@ -1,5 +1,7 @@
 I'm using the retired WeMos D1 mini Pro ESP8266 v1 board (its more-or-less the same as [the v2 edition](https://www.wemos.cc/en/latest/d1/d1_mini_pro.html)).
 
+**NB** These instructions also work with [WeMos D1 mini](https://docs.wemos.cc/en/latest/d1/d1_mini.html).
+
 This board connects to the computer as a USB serial device, as such, you should add your user to the `dialout` group:
 
 ```bash
@@ -90,7 +92,7 @@ This flash device Manufacturer and Device ID is described at [coreboot flashrom 
 #define WINBOND_NEX_W25Q128_V   0x4018  /* W25Q128BV; W25Q128FV in SPI mode (default) */
 ```
 
-And the actual part number that is printed in the physical flash chip is 25Q128FVSG which supports QPI mode. Since the wemos board has connected all flash pins to the ESP we can use the qio flash mode.
+And the actual part number that is printed in the physical flash chip is 25Q128FVSG which supports QPI mode. Since the WeMos board has connected all flash pins to the ESP we can use the qio flash mode.
 
 Flash the device with [Tasmota](https://github.com/arendst/Tasmota) lite:
 
@@ -110,7 +112,9 @@ wget -qO $tasmota_image $tasmota_url
 #       Checksum: 84 (valid)
 esptool.py image_info $tasmota_image
 esptool.py -p /dev/ttyUSB0 erase_flash
-esptool.py -p /dev/ttyUSB0 write_flash --flash_size 16MB --flash_mode qio 0x0 $tasmota_image
+# NB the --flash_size parameter is not needed because the tool
+#    automatically detects the flash size.
+esptool.py -p /dev/ttyUSB0 write_flash --flash_mode qio 0x0 $tasmota_image
 ```
 
 Connect to the board to see its status:
